@@ -361,6 +361,18 @@ export default function Home() {
                   >
                     Contact
                   </Button>
+                  <Button 
+                    href="/login" 
+                    variant="outlined"
+                    sx={{ 
+                      mx: 1,
+                      borderRadius: 2,
+                      textTransform: 'none',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Login
+                  </Button>
                 </Box>
                 
                 {/* Social media icons */}

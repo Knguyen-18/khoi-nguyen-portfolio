@@ -53,11 +53,77 @@ export default function Home() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   // State to track if dark mode is active
   const [darkMode, setDarkMode] = useState(true);
+  
+  // Contact form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
 
   // Update dark mode when system preference changes
   useEffect(() => {
     setDarkMode(prefersDarkMode);
   }, [prefersDarkMode]);
+
+  // Handle form field changes
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+    // Clear status message when user starts typing
+    if (submitStatus.type) {
+      setSubmitStatus({ type: null, message: '' });
+    }
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Thank you for your message! I\'ll get back to you soon.'
+        });
+        // Clear form
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Failed to send message. Please try again.'
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'An error occurred. Please try again later.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Create a theme based on dark/light mode preference
   const theme = createTheme({
@@ -952,7 +1018,7 @@ export default function Home() {
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                   {/* Email link */}
                   <Link 
-                    href="mailto:john.doe@example.com" 
+                    href="mailto:knguyen18@mccneb.edu" 
                     color="inherit"
                     underline="none"
                     sx={{ 
@@ -966,7 +1032,7 @@ export default function Home() {
                     }}
                   >
                     <HiOutlineMail style={{ marginRight: '0.5rem' }} />
-                    john.doe@example.com
+                    knguyen18@mccneb.edu
                   </Link>
                   
                   {/* Social media links */}
@@ -1037,13 +1103,17 @@ export default function Home() {
                   }}
                 >
                   {/* Contact form - using TextField components */}
-                  <Box component="form" sx={styles.contactForm}>
+                  <Box component="form" onSubmit={handleSubmit} sx={styles.contactForm}>
                     <TextField
                       fullWidth
                       label="Name"
                       variant="outlined"
                       placeholder="Your name"
                       id="name"
+                      value={formData.name}
+                      onChange={handleFormChange}
+                      required
+                      disabled={isSubmitting}
                       InputProps={{
                         sx: {
                           borderRadius: 2,
@@ -1057,6 +1127,10 @@ export default function Home() {
                       placeholder="your.email@example.com"
                       id="email"
                       type="email"
+                      value={formData.email}
+                      onChange={handleFormChange}
+                      required
+                      disabled={isSubmitting}
                       InputProps={{
                         sx: {
                           borderRadius: 2,
@@ -1071,12 +1145,39 @@ export default function Home() {
                       id="message"
                       multiline
                       rows={4}
+                      value={formData.message}
+                      onChange={handleFormChange}
+                      required
+                      disabled={isSubmitting}
                       InputProps={{
                         sx: {
                           borderRadius: 2,
                         }
                       }}
                     />
+                    
+                    {/* Status message */}
+                    {submitStatus.type && (
+                      <Box
+                        sx={{
+                          p: 2,
+                          borderRadius: 2,
+                          backgroundColor: submitStatus.type === 'success' 
+                            ? 'rgba(76, 175, 80, 0.1)' 
+                            : 'rgba(244, 67, 54, 0.1)',
+                          border: `1px solid ${submitStatus.type === 'success' ? '#4caf50' : '#f44336'}`,
+                        }}
+                      >
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            color: submitStatus.type === 'success' ? '#4caf50' : '#f44336',
+                          }}
+                        >
+                          {submitStatus.message}
+                        </Typography>
+                      </Box>
+                    )}
                     
                     {/* Submit button */}
                     <Button
@@ -1085,6 +1186,7 @@ export default function Home() {
                       color="primary"
                       fullWidth
                       size="large"
+                      disabled={isSubmitting}
                       sx={{ 
                         py: 1.5, 
                         borderRadius: 2,
@@ -1094,10 +1196,13 @@ export default function Home() {
                         '&:hover': {
                           boxShadow: '0 6px 20px rgba(58, 134, 255, 0.6)',
                           transform: 'translateY(-2px)',
+                        },
+                        '&:disabled': {
+                          background: 'rgba(58, 134, 255, 0.5)',
                         }
                       }}
                     >
-                      Send Message
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </Button>
                   </Box>
                 </Paper>

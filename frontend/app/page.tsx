@@ -454,7 +454,7 @@ export default function Home() {
                 }}>
                   {/* GitHub link */}
                   <IconButton 
-                    href="https://github.com/knguyen18"
+                    href="https://github.com/knguyen-18"
                     target="_blank"
                     rel="noopener noreferrer"
                     color="inherit"
@@ -473,7 +473,7 @@ export default function Home() {
                   
                   {/* LinkedIn link */}
                   <IconButton 
-                    href="https://linkedin.com/in/johndoe" 
+                    href="https://linkedin.com/in/knguyen-18" 
                     target="_blank"
                     rel="noopener noreferrer"
                     color="inherit"
@@ -1038,7 +1038,7 @@ export default function Home() {
                   {/* Social media links */}
                   <Box sx={{ display: 'flex', gap: 2 }}>
                     <IconButton 
-                      href="https://github.com/johndoe" 
+                      href="https://github.com/knguyen-18" 
                       target="_blank"
                       rel="noopener noreferrer"
                       color="inherit"
@@ -1054,7 +1054,7 @@ export default function Home() {
                       <FaGithub />
                     </IconButton>
                     <IconButton 
-                      href="https://linkedin.com/in/johndoe" 
+                      href="https://linkedin.com/in/knguyen-18" 
                       target="_blank"
                       rel="noopener noreferrer"
                       color="inherit"

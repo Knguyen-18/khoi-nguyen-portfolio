@@ -691,22 +691,52 @@ export default function Home() {
                 deployment time by 65%. I&apos;m passionate about sharing knowledge and have contributed to
                 several open-source projects.
               </Typography>
-              
-              {/* Resume download button */}
-              <Box sx={{ mt: 4, display: 'flex', gap: 2, justifyContent: 'center' }}>
-                <Button 
-                  variant="contained" 
-                  color="primary"
-                  href="/resume.pdf"
-                  target="_blank"
-                  sx={{ 
-                    background: 'linear-gradient(to right, #3a86ff, #5e60ce)',
-                  }}
-                >
-                  Download Resume
-                </Button>
-              </Box>
             </Paper>
+          </Container>
+        </Box>
+
+        {/* ===== RESUME SECTION ===== */}
+        <Box 
+          component="section" 
+          id="resume" 
+          sx={{ 
+            py: 8, 
+            bgcolor: darkMode ? '#0a1929' : '#f8fafc',
+            textAlign: 'center',
+          }}
+        >
+          <Container maxWidth="sm">
+            <Typography 
+              variant="h5" 
+              sx={{ 
+                mb: 3,
+                fontWeight: 600,
+                color: darkMode ? '#fff' : '#0a1929',
+              }}
+            >
+              Interested in working together?
+            </Typography>
+            <Button 
+              variant="contained" 
+              color="primary"
+              href="/resume"
+              target="_blank"
+              size="large"
+              sx={{ 
+                px: 5,
+                py: 1.5,
+                fontSize: '1.1rem',
+                background: 'linear-gradient(to right, #3a86ff, #5e60ce)',
+                '&:hover': {
+                  background: 'linear-gradient(to right, #5e60ce, #3a86ff)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: 4,
+                },
+                transition: 'all 0.3s ease',
+              }}
+            >
+              Download Resume
+            </Button>
           </Container>
         </Box>
 
@@ -1215,19 +1245,171 @@ export default function Home() {
         <Box
           component="footer"
           sx={{
-            py: 4,
+            py: 6,
             bgcolor: darkMode ? '#0a1929' : '#f8fafc',
             borderTop: 1,
             borderColor: darkMode ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
           }}
         >
           <Container maxWidth="lg">
+            {/* Footer Navigation */}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", sm: "row" },
+                justifyContent: "center",
+                gap: { xs: 2, sm: 3 },
+                mb: 4,
+                flexWrap: "wrap",
+              }}
+            >
+              <Button
+                color="inherit"
+                onClick={() => scrollToSection('about')}
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    bgcolor: 'transparent',
+                  },
+                }}
+              >
+                About
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => scrollToSection('projects')}
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    bgcolor: 'transparent',
+                  },
+                }}
+              >
+                Projects
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => scrollToSection('skills')}
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    bgcolor: 'transparent',
+                  },
+                }}
+              >
+                Skills
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => scrollToSection('contact')}
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    bgcolor: 'transparent',
+                  },
+                }}
+              >
+                Contact
+              </Button>
+              <Button
+                color="inherit"
+                href="/resume"
+                target="_blank"
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    bgcolor: 'transparent',
+                  },
+                }}
+              >
+                Resume
+              </Button>
+            </Box>
+
+            {/* Social Media Icons */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: 2,
+                mb: 3,
+              }}
+            >
+              <IconButton
+                href="https://github.com/knguyen-18"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    transform: 'translateY(-3px)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <FaGithub size={20} />
+              </IconButton>
+              <IconButton
+                href="https://linkedin.com/in/knguyen-18"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    transform: 'translateY(-3px)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <FaLinkedinIn size={20} />
+              </IconButton>
+              <IconButton
+                href="https://twitter.com/johndoe"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    transform: 'translateY(-3px)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <FaTwitter size={20} />
+              </IconButton>
+              <IconButton
+                href="mailto:knguyen18@mccneb.edu"
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    transform: 'translateY(-3px)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <HiOutlineMail size={20} />
+              </IconButton>
+            </Box>
+
+            {/* Copyright */}
             <Box
               sx={{
                 display: "flex",
                 flexDirection: { xs: "column", md: "row" },
                 justifyContent: "space-between",
                 alignItems: "center",
+                pt: 3,
+                borderTop: 1,
+                borderColor: darkMode ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
               }}
             >
               <Typography variant="body2" color="text.secondary">

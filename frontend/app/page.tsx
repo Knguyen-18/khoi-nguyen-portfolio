@@ -46,6 +46,8 @@ import {
   Typography, // Text component with different variants
   useMediaQuery, // Hook to check media queries
 } from "@mui/material";
+import PageVisitAnalytics from "./components/PageVisitAnalytics";
+import ProjectOverview from "./components/ProjectOverview";
 
 // Main component for the entire page
 export default function Home() {
@@ -419,6 +421,13 @@ export default function Home() {
                     sx={{ mx: 1 }}
                   >
                     Skills
+                  </Button>
+                  <Button 
+                    onClick={() => scrollToSection('project')} 
+                    color="inherit" 
+                    sx={{ mx: 1 }}
+                  >
+                    Project
                   </Button>
                   <Button 
                     onClick={() => scrollToSection('contact')} 
@@ -1004,6 +1013,11 @@ export default function Home() {
           </Container>
         </Box>
 
+        {/* ===== PROJECT OVERVIEW SECTION ===== */}
+        <Box id="project">
+          <ProjectOverview />
+        </Box>
+
         {/* ===== CONTACT SECTION ===== */}
         <Box 
           component="section" 
@@ -1304,6 +1318,19 @@ export default function Home() {
               </Button>
               <Button
                 color="inherit"
+                onClick={() => scrollToSection('project')}
+                sx={{
+                  color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                  '&:hover': {
+                    color: '#3a86ff',
+                    bgcolor: 'transparent',
+                  },
+                }}
+              >
+                Project
+              </Button>
+              <Button
+                color="inherit"
                 onClick={() => scrollToSection('contact')}
                 sx={{
                   color: darkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
@@ -1398,6 +1425,10 @@ export default function Home() {
               >
                 <HiOutlineMail size={20} />
               </IconButton>
+            </Box>
+
+            <Box sx={{ mb: 3 }}>
+              <PageVisitAnalytics />
             </Box>
 
             {/* Copyright */}
